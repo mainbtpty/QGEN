@@ -1,4 +1,5 @@
--e git+https://github.com/AMontgomerie/question_generator.git#egg=question_generator
+https://github.com/AMontgomerie/question_generator.git@d950d6ea7a69a01814e2fe6ff2f4d6cc8999f483#egg=question_generator
+
 transformers==4.12.0
 numpy==1.21.2
 pandas==1.3.2
