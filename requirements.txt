@@ -1,7 +1,0 @@
-https://github.com/AMontgomerie/question_generator.git@v1.0.0#egg=question_generator
-transformers==4.12.0
-numpy==1.21.2
-pandas==1.3.2
-beautifulsoup4==4.10.0
-textract==1.6.5
---upgrade pip
