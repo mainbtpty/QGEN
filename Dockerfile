@@ -16,6 +16,11 @@ RUN git clone https://github.com/AMontgomerie/question_generator.git /app/questi
 # Install Streamlit
 RUN pip install streamlit
 
+# Install textract
+RUN apt-get install -y libmagic1
+RUN pip install textract
+
+
 # Make port 8501 available to the world outside this container
 EXPOSE 8501
 
