@@ -16,6 +16,10 @@ RUN git clone https://github.com/AMontgomerie/question_generator.git /app/questi
 # Install Streamlit
 RUN pip install streamlit
 
+# Install textract dependencies
+RUN apt-get install -y libmagic1
+
+
 # Install textract
 RUN apt-get install -y libmagic1
 RUN pip install textract
