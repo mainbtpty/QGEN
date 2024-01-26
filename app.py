@@ -1,8 +1,13 @@
 import streamlit as st
 import os
-from question_generator.questiongenerator import QuestionGenerator
 import textract
 import time
+# Add the correct path to the Python system path
+import sys
+sys.path.append('/app/')
+
+# Now, import the QuestionGenerator
+from question_generator.questiongenerator import QuestionGenerator
 
 def generate_questions(text, num_questions):
     qg = QuestionGenerator()
