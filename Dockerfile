@@ -1,8 +1,9 @@
 # Use an official Python runtime for x86-64 architecture
 FROM python:3.9-slim-buster
 
-# Install git
-RUN apt-get update && apt-get install -y git
+# Install git, libmagic1, and other dependencies
+RUN apt-get update && \
+    apt-get install -y git libmagic1 libxml2 libxslt1.1 libffi-dev build-essential
 
 # Set the working directory in the container
 WORKDIR /app
@@ -16,14 +17,8 @@ RUN git clone https://github.com/AMontgomerie/question_generator.git /app/questi
 # Install Streamlit
 RUN pip install streamlit
 
-# Install textract dependencies
-RUN apt-get install -y libmagic1
-
-
-# Install textract
-RUN apt-get install -y libmagic1
-RUN pip install textract
-
+# Install Textract and its dependencies
+RUN pip install textract[all]
 
 # Make port 8501 available to the world outside this container
 EXPOSE 8501
