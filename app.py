@@ -1,6 +1,4 @@
 import streamlit as st
-import os
-import PyPDF2
 import time
 # Add the correct path to the Python system path
 import sys
@@ -13,18 +11,16 @@ def generate_questions(text, num_questions):
     qg = QuestionGenerator()
     return qg.generate(text, num_questions=num_questions)
 
-def read_file(file_path):
+def read_file(file_upload):
     try:
-        if file_path.endswith('.pdf'):
-            with open(file_path, 'rb') as pdf_file:
-                pdf_reader = PyPDF2.PdfReader(pdf_file)
-                text = ''
-                for page_number in range(len(pdf_reader.pages)):
-                    text += pdf_reader.pages[page_number].extractText()
+        if file_upload.name.endswith('.pdf'):
+            # This part of the code is modified to use st.file_uploader
+            # Read PDF file directly using st.file_uploader
+            pdf_data = file_upload.read()
+            text = pdf_data.decode('utf-8')
             return text
         else:
-            with open(file_path, 'r', encoding='utf-8') as text_file:
-                return text_file.read()
+            return file_upload.getvalue().decode('utf-8')
     except Exception as e:
         st.error(f"Error occurred while reading the file: {e}")
         return None
@@ -36,11 +32,7 @@ file_upload = st.file_uploader('Choose a file', type=['txt', 'pdf'])
 text_area = st.text_area('Or input the text here')
 
 if file_upload is not None:
-    file_bytes = file_upload.getvalue()
-    with open('temp_file','wb') as f:
-        f.write(file_bytes)
-    text = read_file('temp_file')
-    os.remove('temp_file')
+    text = read_file(file_upload)
 elif text_area != '':
     text = text_area
 
