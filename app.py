@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-import textract
+import PyPDF2
 import time
 # Add the correct path to the Python system path
 import sys
@@ -15,17 +15,18 @@ def generate_questions(text, num_questions):
 
 def read_file(file_path):
     try:
-        text = textract.process(file_path)
-        return text.decode('utf-8')
-    except UnicodeDecodeError:
-        try:
-            text = textract.process(file_path, encoding='ISO-8859-1')
-            return text.decode('ISO-8859-1')
-        except Exception as e:
-            st.error(f"Error: {e}")
-            return None
+        if file_path.endswith('.pdf'):
+            with open(file_path, 'rb') as pdf_file:
+                pdf_reader = PyPDF2.PdfReader(pdf_file)
+                text = ''
+                for page_number in range(len(pdf_reader.pages)):
+                    text += pdf_reader.pages[page_number].extractText()
+            return text
+        else:
+            with open(file_path, 'r', encoding='utf-8') as text_file:
+                return text_file.read()
     except Exception as e:
-        st.error(f"Error: {e}")
+        st.error(f"Error occurred while reading the file: {e}")
         return None
 
 st.title('AI Question Generator')

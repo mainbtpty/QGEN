@@ -3,7 +3,8 @@ FROM python:3.9-slim-buster
 
 # Install git, libmagic1, and other dependencies
 RUN apt-get update && \
-    apt-get install -y git libmagic1 libxml2 libxslt1.1 libffi-dev build-essential
+    apt-get install -y git libxml2 libxslt1.1 libffi-dev build-essential \
+    libpoppler-cpp-dev pkg-config python3-dev
 
 # Set the working directory in the container
 WORKDIR /app
@@ -17,8 +18,8 @@ RUN git clone https://github.com/AMontgomerie/question_generator.git /app/questi
 # Install Streamlit
 RUN pip install streamlit
 
-# Install Textract and its dependencies
-RUN pip install textract[all]
+# Install PyPDF2 for PDF text extraction
+RUN pip install PyPDF2
 
 # Make port 8501 available to the world outside this container
 EXPOSE 8501
