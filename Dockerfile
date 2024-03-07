@@ -19,7 +19,6 @@ RUN git clone https://github.com/AMontgomerie/question_generator.git /app/questi
 RUN pip install streamlit
 
 # Install PyPDF2 for PDF text extraction
-RUN pip install PyPDF2
 
 # Make port 8501 available to the world outside this container
 EXPOSE 8501
